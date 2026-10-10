@@ -15,7 +15,7 @@ def home():
             with connection.cursor() as cursor:
                 
                 # --- CHANGE THIS LINE to your actual table name ---
-                cursor.execute("SELECT * FROM student1")
+                cursor.execute("SELECT * FROM students")
                 
                 # Fetch all rows from your table
                 rows = cursor.fetchall()
