@@ -14,7 +14,7 @@ def get_db_data():
     with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
         with connection.cursor() as cursor:
             # Replace with your actual table name
-            cursor.execute("SELECT 'Hello from Autonomous DB!' FROM dual")
+            cursor.execute("SELECT * FROM student1;")
             result = cursor.fetchone()
             return result[0] if result else "No data"
 
