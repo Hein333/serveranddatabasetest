@@ -4,28 +4,33 @@ import oracledb
 
 app = Flask(__name__)
 
-# Fetch database credentials securely from Environment Variables
 DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
-DB_DSN = os.environ.get("DB_DSN")  # Connection string copied from Oracle Cloud
-
-def get_db_data():
-    # python-oracledb default thin mode works walletless over TLS
-    with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
-        with connection.cursor() as cursor:
-            # Replace with your actual table name
-            cursor.execute("SELECT student_id FROM student1")
-            result = cursor.fetchone()
-            return result[0] if result else "No data"
+DB_DSN = os.environ.get("DB_DSN")
 
 @app.route("/")
 def home():
     try:
-        data = get_db_data()
-        print(f"Fetched data from Oracle DB: {data}", flush=True)
-        return jsonify({"status": "success", "data": data})
+        with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
+            with connection.cursor() as cursor:
+                
+                # --- CHANGE THIS LINE to your actual table name ---
+                cursor.execute("SELECT * FROM student1")
+                
+                # Fetch all rows from your table
+                rows = cursor.fetchall()
+                
+                # Get the column names so your JSON looks organized
+                columns = [col[0] for col in cursor.description]
+                
+                # Combine column names and row data into a list of dictionaries
+                results = [dict(zip(columns, row)) for row in rows]
+                
+                print(f"Successfully fetched {len(results)} rows from database.", flush=True)
+                return jsonify({"status": "success", "row_count": len(results), "data": results})
+                
     except Exception as e:
-        print(f"Database connection error: {e}", flush=True)
+        print(f"Database query error: {e}", flush=True)
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == "__main__":
