@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, render_template
 import oracledb
 
 app = Flask(__name__)
@@ -13,25 +13,18 @@ def home():
     try:
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
-                
-                # --- CHANGE THIS LINE to your actual table name ---
+                # --- CHANGE THIS to your actual table name ---
                 cursor.execute("SELECT * FROM students")
                 
-                # Fetch all rows from your table
                 rows = cursor.fetchall()
-                
-                # Get the column names so your JSON looks organized
                 columns = [col[0] for col in cursor.description]
                 
-                # Combine column names and row data into a list of dictionaries
-                results = [dict(zip(columns, row)) for row in rows]
-                
-                print(f"Successfully fetched {len(results)} rows from database.", flush=True)
-                return jsonify({"status": "success", "row_count": len(results), "data": results})
+                print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
+                return render_template("index.html", columns=columns, rows=rows)
                 
     except Exception as e:
         print(f"Database query error: {e}", flush=True)
-        return jsonify({"status": "error", "message": str(e)}), 500
+        return render_template("index.html", error=str(e))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
