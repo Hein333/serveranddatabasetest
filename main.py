@@ -14,7 +14,7 @@ def home():
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
                 # --- CHANGE THIS to your actual table name ---
-                cursor.execute("SELECT * FROM students")
+                cursor.execute("SELECT * FROM sheet1")
                 
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
