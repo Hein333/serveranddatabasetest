@@ -8,8 +8,8 @@ DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DB_DSN = os.environ.get("DB_DSN")
 
-@app.route("/")
-def home():
+@app.route("/FRUITS")
+def fruits():
     try:
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
@@ -46,8 +46,8 @@ def student():
         return render_template("index.html", error=str(e))
 
 
-@app.route("/test")
-def testhome():
+@app.route("/")
+def home():
     try:
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
