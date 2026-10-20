@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 import oracledb
 
 app = Flask(__name__)
@@ -63,6 +63,13 @@ def home():
     except Exception as e:
         print(f"Database query error: {e}", flush=True)
         return render_template("home.html", error=str(e))
+
+
+@app.route("/submit",methods=["post"])
+def submit():
+    username = request.form.get('username')
+    print(username)
+    return username
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
