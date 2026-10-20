@@ -67,13 +67,15 @@ def home():
 
 @app.route("/submit",methods=["post"])
 def submit():
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
+    firstname = request.form.get('first_name')
+    lastname = request.form.get('last_name')
     try:
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
                 # --- CHANGE THIS to your actual table name ---
-                cursor.execute(f"INSERT INTO students (first_name,last_name) VALUES ({first_name},{last_name})")
+                # Using positional placeholders (:1, :2)
+                sql = "INSERT INTO students (first_name, last_name) VALUES (:1, :2)"
+                cursor.execute(sql, (firstname, lastname))
                 
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
