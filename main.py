@@ -77,10 +77,6 @@ def submit():
                 sql = "INSERT INTO students (first_name, last_name) VALUES (:1, :2)"
                 cursor.execute(sql, (firstname, lastname))
                 
-                rows = cursor.fetchall()
-                columns = [col[0] for col in cursor.description]
-                
-                print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
                 return 'successfully updated'
     except Exception as e:
         print(f"Database query error: {e}", flush=True)
