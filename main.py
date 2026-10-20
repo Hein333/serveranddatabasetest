@@ -69,8 +69,18 @@ def home():
 def submit():
     username = request.form.get('username')
     email = request.form.get('email')
-    print(username)
-    return (username,email)
+    try:
+        with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
+            with connection.cursor() as cursor:
+                # --- CHANGE THIS to your actual table name ---
+                cursor.execute(f"INSERT INTO students (first_name,last_name) VALUES ({first_name},{last_name}")
+                
+                rows = cursor.fetchall()
+                columns = [col[0] for col in cursor.description]
+                
+                print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
+                return 'successfully updated'
+    
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
