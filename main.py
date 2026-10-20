@@ -76,6 +76,7 @@ def submit():
                 # Using positional placeholders (:1, :2)
                 sql = "INSERT INTO students (first_name, last_name) VALUES (:1, :2)"
                 cursor.execute(sql, (firstname, lastname))
+                connection.commit()
                 
                 return 'successfully updated'
     except Exception as e:
