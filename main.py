@@ -67,8 +67,8 @@ def home():
 
 @app.route("/submit",methods=["post"])
 def submit():
-    username = request.form.get('username')
-    email = request.form.get('email')
+    username = request.form.get('first_name')
+    email = request.form.get('last_name')
     try:
         with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
             with connection.cursor() as cursor:
