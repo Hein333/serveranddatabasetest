@@ -80,6 +80,10 @@ def submit():
                 
                 print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
                 return 'successfully updated'
+    except Exception as e:
+        print(f"Database query error: {e}", flush=True)
+        return render_template("index.html", error=str(e))
+
     
 
 if __name__ == "__main__":
