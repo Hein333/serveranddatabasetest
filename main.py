@@ -68,8 +68,9 @@ def home():
 @app.route("/submit",methods=["post"])
 def submit():
     username = request.form.get('username')
+    email = request.form.get('email')
     print(username)
-    return username
+    return (username,email)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
