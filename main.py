@@ -95,7 +95,7 @@ def login():
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
                 print(rows)
-                if firstname in rows and lastname in rows:
+                if firstname in rows[0] and lastname in rows[0]:
                     return 'successfully logged IN'
                 else :
                     return 'error'
