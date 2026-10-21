@@ -1,1 +1,30 @@
-html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME Oracle Database Records</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; color: #333; }
+        h1 { color: #0066cc; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #0066cc; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .error { color: red; font-weight: bold; background: #ffe6e6; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+        <!-- LOGIN FIELD -->
+    <form action="/login" method="POST">
+        <label for="Gmail">Gmail:</label><br>
+        <input type="text" name="first_name" required><br><br>
+        <label for="Password">Password:</label><br>
+        <input type="text"  name="last_name" required><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">LOG IN</button>
+        
+    </form>
+</body>
+</html>
