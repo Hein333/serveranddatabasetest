@@ -56,7 +56,7 @@ def home():
                 
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
-                
+                print(rows)
                 print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
                 return render_template("home.html", columns=columns, rows=rows)
                 
