@@ -84,7 +84,7 @@ def submit():
         return render_template("index.html", error=str(e))
 
 @app.route("/login",methods=["post"])
-def submit():
+def login():
     firstname = request.form.get('first_name')
     lastname = request.form.get('last_name')
     try:
