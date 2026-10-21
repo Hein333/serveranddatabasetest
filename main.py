@@ -115,7 +115,7 @@ def loginpage():
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
                 print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
-                return render_template("home.html", columns=columns, rows=rows)
+                return render_template("loginpage.html", columns=columns, rows=rows)
                 
     except Exception as e:
         print(f"Database query error: {e}", flush=True)
