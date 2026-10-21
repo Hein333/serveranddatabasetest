@@ -83,6 +83,24 @@ def submit():
         print(f"Database query error: {e}", flush=True)
         return render_template("index.html", error=str(e))
 
+@app.route("/login",methods=["post"])
+def submit():
+    firstname = request.form.get('first_name')
+    lastname = request.form.get('last_name')
+    try:
+        with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM cusdata")
+                
+                rows = cursor.fetchall()
+                columns = [col[0] for col in cursor.description]
+                print(rows)
+                
+                return 'successfully logged IN'
+    except Exception as e:
+        print(f"Database query error: {e}", flush=True)
+        return render_template("index.html", error=str(e))
+
     
 
 if __name__ == "__main__":
