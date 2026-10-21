@@ -95,11 +95,31 @@ def login():
                 rows = cursor.fetchall()
                 columns = [col[0] for col in cursor.description]
                 print(rows)
-                
-                return 'successfully logged IN'
+                if firstname in rows and lastname in rows:
+                    return 'successfully logged IN'
+                else :
+                    return 'error'
     except Exception as e:
         print(f"Database query error: {e}", flush=True)
         return render_template("index.html", error=str(e))
+
+
+@app.route("/loginpage")
+def loginpage():
+    try:
+        with oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN) as connection:
+            with connection.cursor() as cursor:
+                # --- CHANGE THIS to your actual table name ---
+                cursor.execute("SELECT * FROM cusdata")
+                
+                rows = cursor.fetchall()
+                columns = [col[0] for col in cursor.description]
+                print(f"Successfully fetched {len(rows)} rows from database.", flush=True)
+                return render_template("home.html", columns=columns, rows=rows)
+                
+    except Exception as e:
+        print(f"Database query error: {e}", flush=True)
+        return render_template("loginpage.html", error=str(e))
 
     
 
